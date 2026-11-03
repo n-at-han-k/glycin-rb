@@ -1,0 +1,58 @@
+Glycin for Ruby
+Copyright 2026 General Intelligence Systems
+
+This product includes software developed by the GNOME Project.
+
+--------------------------------------------------------------------------------
+glycin
+--------------------------------------------------------------------------------
+
+The native extension under ext/glycin links glycin, the GNOME sandboxed image
+decoder. This gem is bindings for it and nothing else: every method it defines
+calls into that crate.
+
+  https://gitlab.gnome.org/GNOME/glycin
+  Copyright 2023-2026 Sophie Herold and the glycin contributors
+  Licensed under MPL-2.0 OR LGPL-2.1-or-later
+
+glycin is weak copyleft and this gem is Apache-2.0, which is a combination the
+licences allow in one direction only. Nothing of glycin is copied into this
+work: the dependency is linked, and no source or comment is carried across. A
+distributed binary gem does contain glycin's compiled object, so it is
+distributed under glycin's own terms as well as these, and the dual offer is
+what makes that workable -- LGPL-2.1-or-later section 6 permits a combined work
+under other terms provided the glycin portion stays relinkable and its source
+remains available at the address above.
+
+  - MPL-2.0 is file-scoped: its obligations attach to glycin's own files, and
+    MPL-2.0 section 3.3 permits distributing a larger work under other terms.
+  - LGPL-2.1-or-later is the alternative offer, and is the branch that speaks
+    to linking.
+
+Either way the obligation is to glycin's files, not to this binding, and it is
+discharged by pointing at the upstream repository rather than by relicensing
+this gem.
+
+--------------------------------------------------------------------------------
+glycin-loaders
+--------------------------------------------------------------------------------
+
+glycin decodes nothing in-process: each format's decoder is a separate binary,
+packaged as glycin-loaders, which glycin spawns under bwrap and speaks to over
+D-Bus. Those binaries are a runtime dependency of this gem and are not
+distributed with it, in it, or linked into it. They are installed by the host's
+package manager and carry their own licences, including the licences of the
+image codecs they wrap.
+
+  https://gitlab.gnome.org/GNOME/glycin
+
+--------------------------------------------------------------------------------
+On libglycin
+--------------------------------------------------------------------------------
+
+libglycin is the C/GObject wrapper over the same crate, intended for consumers
+that reach it through GObject introspection. It appears in no part of this
+product: this binding calls the Rust API directly through magnus. A Ruby
+application that would rather have GObjects should use libglycin through the
+gobject-introspection gem instead of this one, and the two are not meant to be
+mixed in one process.
